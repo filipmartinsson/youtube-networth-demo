@@ -8,7 +8,12 @@ const blockchainOptions = [
   { id: 'base', name: 'Base', logo: './chainLogos/base-logo.svg' }
 ];
 
-const ChainSelector = ({selectedChains, onSelectionChange}) => {
+const ChainSelector = ({selectedChains, onSelectionChange, netWorth}) => {
+
+  let USDollar = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  });
 
   const toggleChain = (chainId) => {
     onSelectionChange(prevSelected => {
@@ -31,6 +36,9 @@ const ChainSelector = ({selectedChains, onSelectionChange}) => {
           <div className='chain-details'>
             <div className='chain-name'>
                 {chain.name}
+            </div>
+            <div className='chain-value'>
+                { USDollar.format(netWorth.chains?.find( c => c.chain === chain.id).networth_usd) }
             </div>
           </div>
         </button>
